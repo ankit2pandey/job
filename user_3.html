@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch Last Three Users</title>
+    <script>
+        async function fetchLastThreeUsers() {
+            try {
+                const response = await fetch('http://localhost:3000/getLastThreeUsers');
+                if (!response.ok) {
+                    throw new Error('Network response was not ok: ' + response.statusText);
+                }
+                const users = await response.json();
+                console.log(users); // Log the data to the console
+
+                // Display the data in the output section
+                const output = document.getElementById('output');
+                document.getElementById('output').textContent =users[1].name;
+            } catch (error) {
+                console.error('There was a problem fetching the data:', error);
+                document.getElementById('output').textContent = 'Error: ' + error.message;
+            }
+        }
+
+        // Automatically fetch data when the page loads
+        window.onload = fetchLastThreeUsers;
+    </script>
+</head>
+<body>
+    <h1>Last Three Users</h1>
+    <div id="output"></div>
+</body>
+</html>
